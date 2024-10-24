@@ -102,6 +102,13 @@ steps:
     projects: '**/*Tests*.csproj'
     arguments: '--filter "TestCategory!=CosmosDb_NoSql&TestCategory!=MsSql&TestCategory!=PostgreSql&TestCategory!=MySql&TestCategory!=DwSql" --configuration $(buildConfiguration) --collect "XPlat Code coverage"'
 
+- task: DotNetCoreCLI@2
+  displayName: "Run Unit Tests"
+  inputs:
+    command: test
+    projects: '**/*Tests*.csproj'
+    arguments: '--filter "FullyQualifiedName~RestServiceUnitTests"--configuration $(buildConfiguration) --collect "XPlat Code coverage"'
+
 - task: CmdLine@2
   displayName: 'Set flag to publish Verify *.received files when tests fail'
   condition: failed()
